@@ -183,7 +183,17 @@ router.post('/getPreview',function (req,res,next) {
                 return
             }
         )
-    }else{
+    }else if(req.body.categoryId){
+        Content.find({
+            category:req.body.categoryId
+        }).populate(['category', 'user','clt']).then(
+            contents=>{
+                responseData.contents=contents;
+                res.json(responseData);
+                return
+            }
+        )
+    } else{
         Content.find().populate(['category', 'user','clt']).then(
             contents=>{
                 responseData.contents=contents;

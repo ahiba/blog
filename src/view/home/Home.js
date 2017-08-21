@@ -5,7 +5,8 @@ import Recommend from 'components/home/Recommend';
 let propTypes = {
     initMyPage:PT.func,
     getContent:PT.func,
-    commentAjax:PT.func
+    commentAjax:PT.func,
+    myPagePreviews:PT.array
 }
 
 export default class Home extends React.Component{
@@ -36,7 +37,8 @@ export default class Home extends React.Component{
 
     render(){
         let {contents,authors} = this.state
-        let{initMyPage,history,getContent,commentAjax}= this.props
+        let{initMyPage,history,getContent,commentAjax,myPagePreviews}= this.props
+        myPagePreviews?(contents = myPagePreviews):(contents=contents)
         return (
             <div className="ui container grid">
                 <div className="column twelve wide">

@@ -3,7 +3,8 @@ import S from './style.scss';
 
 let propTypes = {
     myInfo:PT.object,
-    logoutAjax:PT.func
+    logoutAjax:PT.func,
+    diffcontentAjax:PT.func
 }
 
 export default class Nav extends React.Component{
@@ -28,8 +29,9 @@ export default class Nav extends React.Component{
             })
     }
     render(){
+
         let {categories} = this.state;
-        let {myInfo} = this.props
+        let {myInfo,diffcontentAjax} = this.props
         let userlink = null;
         if(myInfo){
             let {username,isAdmin} = myInfo;
@@ -75,12 +77,15 @@ export default class Nav extends React.Component{
             ]
         }
         if(categories){
+            console.log(categories)
             categories = categories.map((elt,i)=>{
-                let {categoryname} = elt;
+                let {categoryname,_id} = elt;
+                console.log(_id)
                 return(
-                    <NavLink exact to={`/${categoryname}`}
+                    <NavLink exact to={`search?id=${_id}`}
                              className={`item`}
                              activeClassName="active"
+                             onClick={()=>(diffcontentAjax(_id))}
                     >{categoryname}</NavLink>
                 )
             })

@@ -44,6 +44,7 @@ export default class Layout extends React.Component{
         this.getContent = this.getContent.bind(this);
         this.clearMsg = this.clearMsg.bind(this);
         this.commentAjax = this.commentAjax.bind(this);
+        this.diffcontentAjax = this.diffcontentAjax.bind(this);
 
     }
     commentAjax(commentVal,username,contentId){
@@ -64,7 +65,7 @@ export default class Layout extends React.Component{
             }
             })
     }
-    getPreview(data, previewsName){
+    getPreview(data, previewsName,categoryId){
         $.post('/ahiba/admin/getPreview',data)
             .done(({code,contents})=>{
                 if(code===0){
@@ -187,11 +188,23 @@ export default class Layout extends React.Component{
                 })
             })
     }
+    diffcontentAjax(categoryId){
+        // this.getPreview({categoryId})
+        $.post('/ahiba/admin/getPreview',{categoryId})
+            .done(({code,contents})=>{
+                if(code===0){
+                    this.setState({
+                        myPagePreviews:contents,
+                        // previewsName
+                    })
+                }
+            })
+    }
 
 
 
     render(){
-        let {registerAjax,loginAjax, logoutAjax,catAjax,categoriesAjax,collectionAjax,initMyPage,getContent,clearMsg,commentAjax} = this;
+        let {registerAjax,loginAjax, logoutAjax,catAjax,categoriesAjax,collectionAjax,initMyPage,getContent,clearMsg,diffcontentAjax,commentAjax} = this;
         let{myInfo,categories,pages,page,limit,count,myPagePreviews,notebooks,
             previewsName,article,loginMsg,registerMsg,commentMsg} = this.state;
         return (
@@ -217,6 +230,31 @@ export default class Layout extends React.Component{
                          </div>
                    )
                }/>
+
+                <Route exact path="/search" render={
+                    (props)=>(
+                        <div>
+                            <Nav
+                                {...{
+                                    myInfo,
+                                    logoutAjax,
+                                    diffcontentAjax,
+                                }}
+
+                            />
+                            <Home
+                                {...{
+                                    initMyPage,
+                                    getContent,
+                                    commentAjax,
+                                    myPagePreviews
+                                }}
+                                {...props}
+                            />
+                        </div>
+                    )
+                }/>
+
                 <Route  path="/view" render={
                     (props)=>(
                         <div>
@@ -393,9 +431,9 @@ export default class Layout extends React.Component{
                                 < div className="ui message err">
                                     对不起，您不是管理员
                                     <a href="/">点击，跳转至首页</a>
-                                </div>)
-                    )
+                                </div>))
                 }/>
+
             </div>
         );
     }
