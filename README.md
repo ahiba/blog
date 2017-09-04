@@ -11,6 +11,8 @@ preview
 ![image](https://github.com/ahiba//blog/raw/master/preview/写文章.png)
 注册界面预览
 ![image](https://github.com/ahiba//blog/raw/master/preview/注册页.png)
+评论页预览
+![image](https://github.com/ahiba//blog/raw/master/preview/评论页.png)
 后台用户管理预览
 ![image](https://github.com/ahiba//blog/raw/master/preview/后台用户管理.png)
 后台分类管理预览
