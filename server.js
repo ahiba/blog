@@ -1,6 +1,4 @@
-/**
- * Created by zhan on 2017/8/4.
- */
+
 
 var express = require('express');
 //加载数据库模块
